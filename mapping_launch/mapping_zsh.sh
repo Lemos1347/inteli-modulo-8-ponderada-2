@@ -1,48 +1,35 @@
 #!/bin/zsh
 
-# Inicializa o ambiente ROS 2
-source /opt/ros/humble/setup.zsh
-
-# Compila o pacote desejado
-colcon build --packages-select mapping_launch
-
-# Inicializa o ambiente ROS 2
-source ./install/setup.zsh
-
-# Função para lançar o processo ROS e capturar o PID
-launch_ros_process() {
-  local use_sim_time_value=${1:-true}
-  ros2 launch mapping_launch _launch.xml use_sim_time:=$use_sim_time_value &
+# Função para iniciar o processo de lançamento do ROS
+launch_ros() {
+  ./launch_mapping.sh true &
   ros_pid=$!
+  sleep 2
   echo "ROS launch started with PID: $ros_pid"
 }
 
-# Função para encerrar o processo ROS
-kill_ros_process() {
-  echo "Encerrando o processo ROS com PID: $ros_pid"
-  kill -9 $ros_pid
+# Função para salvar o mapa
+save_map() {
+  echo "Salvando o mapa..."
+  ros2 run nav2_map_server map_saver_cli -f ./assets/map/map
 }
 
-# Função chamada quando o CTRL+C é pressionado
-handle_ctrl_c() {
-    echo "CTRL+C pressionado. Salvando o mapa..."
-    # Salva o mapa. Não precisa executar em background ou capturar o PID,
-    # já que é a última ação antes do script terminar.
-    ros2 run nav2_map_server map_saver_cli -f ./assets/map/map
+# Inicia o processo ROS
+launch_ros
 
-    # Encerra o processo ROS se ainda estiver em execução
-    if kill -0 $ros_pid > /dev/null 2>&1; then
-        kill_ros_process
+echo "Pressione Y para salvar o mapa e encerrar o processo." 
+
+# Aguarda o usuário pressionar CTRL+C
+#echo "Pressione Y para salvar o mapa e encerrar o processo."
+
+# Mantém o script em execução até receber o sinal de CTRL+C
+while true; do
+    echo -n "Pressione 'y' para salvar o mapa e sair: "
+    read input
+    if [ "$input" = "y" ]; then
+        save_map
+        break
     fi
+done
 
-    exit 0
-}
-
-# Define o manipulador para SIGINT (CTRL+C)
-trap handle_ctrl_c SIGINT
-
-# Lança o processo ROS
-launch_ros_process
-
-# Aguarda o processo ROS terminar
 wait $ros_pid

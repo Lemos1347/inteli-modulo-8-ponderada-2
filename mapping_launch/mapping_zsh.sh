@@ -11,7 +11,9 @@ launch_ros() {
 # Função para salvar o mapa
 save_map() {
   echo "Salvando o mapa..."
-  ros2 run nav2_map_server map_saver_cli -f ./assets/map/map
+  # Descomente esse linha e comente a proxima caso queira salvar o mapa mapeado com o cartographer
+  #ros2 run nav2_map_server map_saver_cli -f ./assets/map/map
+  ros2 service call /slam_toolbox/serialize_map slam_toolbox/srv/SerializePoseGraph "{filename: './assets/slam_map/map'}"
 }
 
 # Inicia o processo ROS

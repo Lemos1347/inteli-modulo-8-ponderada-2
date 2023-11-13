@@ -13,7 +13,7 @@ chmod +x mapping_zsh.sh
 ```bash
 ./mapping_zsh.sh
 ```
-Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal, lança em um novo terminal xterm o pacote criado, o `mapping_launch`, e no terminal original espera pelo comando "y" para salvar o mapa.
+Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal, lança em um novo terminal xterm o pacote criado, o `mapping_launch`, e no terminal original espera pelo comando "y" para salvar o mapa. O mapa salvo esta localizado em `/assets` na pasta do pacote (`map` para mapeamento com o cartographer e `slam_map` para mapeamento com o slam).
 
 ### Rodar a navegação
 Na root do pacote digite:
@@ -23,7 +23,7 @@ chmod +x init.sh
 ```bash
 ./init.sh
 ```
-Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal e lança o pacote criado, o `navigate_robot`.
+Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal e lança o pacote criado, o `navigate_robot`. O mapa que ele utiliza esta localizado na pasta `assets/map` na pasta do pacote.
 
 # Mapeamento
 O mapeamento foi feito de duas maneiras:

@@ -1,6 +1,12 @@
 <launch>
   <!-- <node pkg="navigate_robot" exec="navigate_robot" name="init_robot" /> -->
+  <include file="$(find-pkg-share turtlebot3_navigation2)/launch/navigation2.launch.py">
+    <arg name="use_sim_time" value="True" />
+    <arg name="slam" value="True" />
+  </include>
+  
   <node pkg="navigate_robot" exec="move_robot" name="vallet" />
   <node pkg="navigate_robot" exec="talk_to_robot" name="talker" launch-prefix="xterm -e"
     output="screen" />
+
 </launch>

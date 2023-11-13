@@ -16,6 +16,7 @@ find_package(nav2_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(slam_toolbox REQUIRED)
 
 # -----------------> TESTE <-----------------
 # add_executable(navigate_robot src/main.cpp)
@@ -26,7 +27,7 @@ find_package(tf2_ros REQUIRED)
 # -----------------> move_robot <-----------------
 add_executable(move_robot src/move_robot/main.cpp src/move_robot/vallet/vallet.cpp)
 
-ament_target_dependencies(move_robot rclcpp geometry_msgs nav2_msgs tf2 tf2_geometry_msgs tf2_ros)
+ament_target_dependencies(move_robot rclcpp geometry_msgs nav2_msgs tf2 tf2_geometry_msgs tf2_ros slam_toolbox)
 
 install(TARGETS move_robot DESTINATION lib/${PROJECT_NAME}/)
 # -----------------> move_robot <-----------------

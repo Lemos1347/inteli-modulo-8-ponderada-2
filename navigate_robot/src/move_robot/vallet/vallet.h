@@ -10,6 +10,7 @@
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "nav2_msgs/action/navigate_to_pose.hpp"
 #include "geometry_msgs/msg/pose.hpp"
+#include "slam_toolbox/srv/deserialize_pose_graph.hpp"
 #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
 #include <vector>
 
@@ -24,7 +25,11 @@ class Vallet : public rclcpp::Node {
       std::vector<std::shared_ptr<geometry_msgs::msg::PoseStamped>> poses_to_go_;
       rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr initial_pose_publisher_;
 
+      rclcpp::Client<slam_toolbox::srv::DeserializePoseGraph>::SharedPtr load_map_client_; 
+
       void publishInitialPose();
+
+      void publishMap();
 
       void subscription_callback(const geometry_msgs::msg::Pose::SharedPtr msg);
       geometry_msgs::msg::PoseStamped create_pose_stamped(float pos_x, float pos_y, float rot_z);

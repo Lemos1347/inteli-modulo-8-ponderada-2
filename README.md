@@ -3,6 +3,7 @@ O objetivo desse repositório é armazenar os códigos para o seguinte exercíci
 Desenvolva um pacote em ROS com as funcionalidades de mapeamento e navegação utilizando o turtlebot 3 (simulado ou real).
 
 ## Arquivos
+*Para rodar esse projeto, é necessário ter o ros2 humble e o xterm instalado e devidamente funcionando*.
 Cada pasta, `mapping_launch` e `navigate_robot` são cada um pacotes ros2 independentes. Lembre-se que é necessário já estar com a simulação no gazebo rodando e totalmente configurada para o turtlebot3 model burger.
 ### Rodar o mapeamento
 Na root do pacote digite:
@@ -12,6 +13,8 @@ chmod +x mapping_zsh.sh
 ```bash
 ./mapping_zsh.sh
 ```
+Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal, lança em um novo terminal xterm o pacote criado, o `mapping_launch`, e no terminal original espera pelo comando "y" para salvar o mapa.
+
 ### Rodar a navegação
 Na root do pacote digite:
 ```bash
@@ -20,6 +23,7 @@ chmod +x init.sh
 ```bash
 ./init.sh
 ```
+Esse aquivo `.sh` funciona APENAS EM TERMINAIS ZSH. Ele basicamente compila o pacote, instala o pacote no terminal e lança o pacote criado, o `navigate_robot`.
 
 # Mapeamento
 O mapeamento foi feito de duas maneiras:
